@@ -1,0 +1,23 @@
+{
+  "name": "playwrighttests",
+  "version": "1.0.0",
+  "description": "Testing FW",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristianestrellax6/playwrightTests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cristianestrellax6/playwrightTests/issues"
+  },
+  "homepage": "https://github.com/cristianestrellax6/playwrightTests#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.0.1"
+  }
+}
