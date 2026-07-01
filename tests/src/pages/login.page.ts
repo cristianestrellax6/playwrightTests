@@ -15,7 +15,7 @@ export class LoginPage {
     this.submitButton = page.getByRole('button', { name: /submit|sign in|log in/i }).first();
   }
 
-  async navigateTo(url = 'https://openweathermap.org/') {
+  async navigateTo(url: string = 'https://openweathermap.org/') {
     await this.page.goto(url);
   }
 
@@ -43,9 +43,5 @@ export class LoginPage {
 
   async getPasswordValue() {
     return this.passwordInput.inputValue();
-  }
-
-  async isOnSignInPage() {
-    return (await this.emailInput.isVisible()) && (await this.passwordInput.isVisible()) && (await this.submitButton.isVisible());
   }
 }

@@ -1,4 +1,10 @@
-import { Locator, Page } from '@playwright/test';
+import { test } from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
+
+test('seed login page object into src/pages', async () => {
+  const target = path.resolve(__dirname, '../src/pages/login.page.ts');
+  const content = `import { Locator, Page } from '@playwright/test';
 
 export class LoginPage {
   readonly page: Page;
@@ -49,3 +55,8 @@ export class LoginPage {
     return (await this.emailInput.isVisible()) && (await this.passwordInput.isVisible()) && (await this.submitButton.isVisible());
   }
 }
+`;
+
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.writeFileSync(target, content, 'utf8');
+});
