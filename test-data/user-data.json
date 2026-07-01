@@ -1,0 +1,9 @@
+{
+  "validUser": {
+    "username": "cristianestrella.86@gmail.com"
+  },
+    "invalidUser": {
+        "username": "invaliduser@example.com"
+    }
+
+}
