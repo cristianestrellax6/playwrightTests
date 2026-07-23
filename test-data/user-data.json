@@ -1,9 +1,12 @@
 {
-  "validUser": {
+  "auth": {
+     "validUser": {
     "username": "cristianestrella.86@gmail.com"
   },
     "invalidUser": {
         "username": "invaliduser@example.com"
-    }
-
+    },
+    "signinSuccessMessage": "Signed in successfully.",
+    "signinErrorMessage": "Invalid Email or password."
+  }
 }
