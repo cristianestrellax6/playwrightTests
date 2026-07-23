@@ -3,9 +3,9 @@ import { Page, Locator } from '@playwright/test';
 export class LoginPage {
   private page: Page;
   private loginLink: Locator;
-  private usernameInput: Locator;
-  private passwordInput: Locator;
-  private loginButton: Locator;
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
+  readonly loginButton: Locator;
   private errorMessage: Locator;
 
   constructor(page: Page) {
@@ -14,7 +14,7 @@ export class LoginPage {
     this.usernameInput = page.getByRole('textbox', { name: 'Email' });
     this.passwordInput = page.getByRole('textbox', { name: 'Password' });
     this.loginButton = page.getByRole('button', { name: 'Submit' });
-    this.errorMessage = page.locator('[data-testid="error-message"]');
+    this.errorMessage = page.getByText('Invalid Email or password.');
   }
 
   async navigateTo(url: string): Promise<void> {
@@ -44,8 +44,8 @@ export class LoginPage {
     await this.clickLoginButton();
   }
 
-  async getErrorMessage(): Promise<string> {
-    return await this.errorMessage.textContent() || '';
+  getErrorMessage(): Locator {
+    return this.errorMessage;
   }
 
   async isErrorMessageVisible(): Promise<boolean> {
