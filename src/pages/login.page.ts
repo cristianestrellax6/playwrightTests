@@ -14,7 +14,7 @@ export class LoginPage {
     this.usernameInput = page.getByRole('textbox', { name: 'Email' });
     this.passwordInput = page.getByRole('textbox', { name: 'Password' });
     this.loginButton = page.getByRole('button', { name: 'Submit' });
-    this.errorMessage = page.getByText('Invalid Email or password.');
+    this.errorMessage = page.locator('.container .panel-body');
   }
 
   async navigateTo(url: string): Promise<void> {
@@ -45,6 +45,7 @@ export class LoginPage {
   }
 
   getErrorMessage(): Locator {
+    this.page.pause(); // Pause the test execution for debugging
     return this.errorMessage;
   }
 

@@ -1,6 +1,6 @@
-import { test, expect } from '../src/fixtures/app.fixtures';
-import * as testData from '../test-data/user-data.json';
-import { env } from '../env';
+import { test, expect } from '../../src/fixtures/app.fixtures';
+import * as testData from '../../test-data/user-data.json';
+import { env } from '../../config/env';
 
 test.describe('Authentication Flow', () => {
 
@@ -8,8 +8,9 @@ test.describe('Authentication Flow', () => {
     await loginPage.navigateTo(env.baseUrl);
   });
 
-  test('should be in the login page', async ({ loginPage, homePage }) => {
-    loginPage.clickLoginLink();
+  test('should be in the login page', async ({ loginPage }) => {
+    await loginPage.clickLoginLink();
+
     await expect(loginPage.usernameInput).toBeVisible();
     await expect(loginPage.passwordInput).toBeVisible();
     await expect(loginPage.loginButton).toBeVisible();
