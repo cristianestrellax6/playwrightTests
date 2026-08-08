@@ -1,55 +1,44 @@
 import { Page, Locator } from '@playwright/test';
+import * as testData from '../../test-data/user-data.json';
 
 export class LoginPage {
-  private page: Page;
-  private loginLink: Locator;
-  readonly usernameInput: Locator;
+  private readonly page: Page;
+
+  readonly loginLink: Locator;
+  readonly emailInput: Locator;
   readonly passwordInput: Locator;
-  readonly loginButton: Locator;
-  private errorMessage: Locator;
+  readonly submitButton: Locator;
+  readonly errorMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.loginLink = page.getByRole('link', { name: 'Login' });
-    this.usernameInput = page.getByRole('textbox', { name: 'Email' });
+    this.emailInput = page.getByRole('textbox', { name: 'Email' });
     this.passwordInput = page.getByRole('textbox', { name: 'Password' });
-    this.loginButton = page.getByRole('button', { name: 'Submit' });
-    this.errorMessage = page.locator('.container .panel-body');
+    this.submitButton = page.getByRole('button', { name: 'Submit' });
+    this.errorMessage = page.getByText(testData.auth.signinErrorMessage);
   }
 
   async navigateTo(url: string): Promise<void> {
     await this.page.goto(url);
   }
 
-  async clickLoginLink(): Promise<void> {
+  /** Follows the navbar `Login` link through to the sign-in form. */
+  async openLoginForm(): Promise<void> {
     await this.loginLink.click();
+    await this.page.waitForURL(/\/users\/sign_in/);
   }
 
-  async enterUsername(username: string): Promise<void> {
-    await this.usernameInput.fill(username);
-  }
-
-  async enterPassword(password: string): Promise<void> {
+  /** Fills and submits the sign-in form; assumes the form is already displayed. */
+  async submitCredentials(email: string, password: string): Promise<void> {
+    await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
+    await this.submitButton.click();
   }
 
-  async clickLoginButton(): Promise<void> {
-    await this.loginButton.click();
-  }
-
-  async login(username: string, password: string): Promise<void> {
-    await this.clickLoginLink(); // Click the login link to open the login form
-    await this.enterUsername(username);
-    await this.enterPassword(password);
-    await this.clickLoginButton();
-  }
-
-  getErrorMessage(): Locator {
-    this.page.pause(); // Pause the test execution for debugging
-    return this.errorMessage;
-  }
-
-  async isErrorMessageVisible(): Promise<boolean> {
-    return await this.errorMessage.isVisible();
+  /** Full sign-in flow starting from any page that shows the navbar `Login` link. */
+  async login(email: string, password: string): Promise<void> {
+    await this.openLoginForm();
+    await this.submitCredentials(email, password);
   }
 }
