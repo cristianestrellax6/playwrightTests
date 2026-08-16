@@ -19,8 +19,8 @@ Playwright Test Agents (planner → generator → healer) rather than tests bein
 - **Node.js** LTS (`@types/node` ^26) — CommonJS package (`"type": "commonjs"`)
 - **dotenv** ^17 — secrets and environment URLs loaded from a gitignored `.env`
 - **GitHub Actions** — `.github/workflows/playwright.yml`, runs on push/PR to `main`/`master`
-- **Playwright MCP server** — `playwright run-test-mcp-server`, wired up in `.vscode/mcp.json`
-  for the planner/generator/healer agents
+- **Playwright MCP server** — Playwright MCP server (playwright-test) is available to GitHub Copilot Chat's Agent mode via .vscode/mcp.json. 
+For Claude Code CLI, a separate playwright MCP server is registered via .mcp.json at the project root.
 - **SpecTest** — spec + change-proposal layer under `spectest/`
 
 ## Test Project Conventions
